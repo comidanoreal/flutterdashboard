@@ -9,10 +9,12 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    name: Build and Deploy Flutter Web
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Set up Flutter
+      - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.22.0"
@@ -27,6 +29,6 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }} # For GitHub deployments
           action: "upload"
-          app_location: "build/web"
+          app_location: "build/web" # This is where your web output goes
